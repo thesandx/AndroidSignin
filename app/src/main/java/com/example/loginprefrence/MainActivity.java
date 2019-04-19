@@ -24,15 +24,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Here we will validate saved preferences
 
-            Log.d("Thesandx", "inside oncreate");
+            Log.d("MainActivity", "inside oncreate");
 
             setContentView(R.layout.activity_main);
 
             if(isLoggedin()){
+                Log.d("MainActivity", "already login starting homeActivity");
+
                 startHomeActivity();
             }
 
-            mEmail = findViewById(R.id.email);
+        Log.d("MainActivity", "not logged in enter username/password");
+
+        mEmail = findViewById(R.id.email);
 
             mPassWord = findViewById(R.id.password);
             signinbtn = findViewById(R.id.sign_in_button);
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
             signinbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.d("MainActivity", "inside onclick");
+
                     loginAttempt();
 
                 }
@@ -50,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loginAttempt() {
+        Log.d("MainActivity", "inside Login Attempt");
+
         //to show error,now set it to null by default
         mEmail.setError(null);
         mPassWord.setError(null);
@@ -92,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //save data in local shared prefrences
            if (rememberMe.isChecked()) {
-                saveLoginDetails(email, password,true);
+               Log.d("MainActivity", "saving login Address");
+
+               saveLoginDetails(email, password,true);
             }
 
             startHomeActivity();
@@ -103,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startHomeActivity () {
+        Log.d("MainActivity", "starting home Activity");
+
 
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
@@ -110,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveLoginDetails(String email, String password,Boolean logged) {
+        Log.d("MainActivity", "saving login details");
+
         new PrefManager(this).saveLoginDetails(email, password);
 
     }

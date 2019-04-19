@@ -21,6 +21,17 @@ public class PrefManager {
 
     }
 
+    public void logout(){
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("Logged",false);
+        editor.apply();
+
+
+
+    }
+
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("Logged",false);
