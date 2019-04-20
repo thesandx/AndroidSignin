@@ -1,7 +1,7 @@
 package com.example.loginprefrence;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.content.SharedPreferences;
-import android.widget.Toast;
+
+import com.parse.Parse;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity", "inside oncreate");
 
             setContentView(R.layout.activity_main);
+
 
             if(isLoggedin()){
                 Log.d("MainActivity", "already login starting homeActivity");
