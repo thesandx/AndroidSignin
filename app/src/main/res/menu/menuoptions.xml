@@ -23,8 +23,8 @@
 
         <menu>
 
-            <item android:id="@+id/subitem1"
-                android:title="subitem1"
+            <item android:id="@+id/Recyclerviewmenu"
+                android:title="open List"
                 app:showAsAction="never"/>
 
             <item android:id="@+id/subitem2"

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
 
 
+
             if(isLoggedin()){
                 Log.d("MainActivity", "already login starting homeActivity");
 

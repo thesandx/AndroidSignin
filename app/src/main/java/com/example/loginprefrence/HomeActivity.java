@@ -3,53 +3,46 @@ package com.example.loginprefrence;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.loginprefrence.parse.ParseServer;
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
 
-import com.example.loginprefrence.*;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private EditText Email;
+    private EditText Password;
+    private Button submitBtn;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-    /**    Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("myAppId")
-                .server("http://10.0.2.2:1337/parse")
-                .build()
-        );
+        Email = findViewById(R.id.EmailEdit);
+        Password = findViewById(R.id.PassEdit);
+        submitBtn = findViewById(R.id.SubmitBtn);
 
-        ParseObject login = new ParseObject("LoginDetails");
-        login.put("score", 1337);
-        login.put("playerName", "Sean Plott");
-        login.saveInBackground(new SaveCallback() {
+        submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void done(ParseException e) {
+            public void onClick(View view) {
+                loginAttempt();
 
-                if (e == null) {
+                //Toast.makeText(HomeActivity.this,"Save Success",Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(getBaseContext(),"Save Success",Toast.LENGTH_LONG).show();
-
-                    System.out.println("saved successfully");
-
-                } else {
-
-                    System.out.println("error while saving");
-
-                }
 
             }
-        });   **/
+        });
 
     }
 
@@ -76,6 +69,14 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"Save Success",Toast.LENGTH_LONG).show();
 
 
+            case R.id.Recyclerviewmenu:
+                System.out.println("clicked on saveEmail");
+                Intent intent = new Intent(this, UserListActivity.class);
+                startActivity(intent);
+
+
+
+
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -95,4 +96,56 @@ public class HomeActivity extends AppCompatActivity {
     public void logOutuser(){
         new PrefManager(this).logout();
     }
-}
+
+
+    private void loginAttempt() {
+        Log.d("HomeActivity", "inside Login Attempt");
+
+        //to show error,now set it to null by default
+        Email.setError(null);
+        Password.setError(null);
+
+
+        //get value from edittext
+        String email = Email.getText().toString();
+        String password = Password.getText().toString();
+
+        boolean cancel = false;
+
+        View focusView = null;
+
+
+        //check for valid email id
+
+        if (TextUtils.isEmpty(email)) {
+            Email.setError("it can't be left empty");
+            focusView = Email;
+            cancel = true;
+        }
+
+        //check for valid password
+
+        if (TextUtils.isEmpty(password)) {
+            Email.setError("it can't be left empty");
+            focusView = Email;
+            cancel = true;
+        }
+
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+
+            System.out.println("Submit button clicked");
+            ParseServer saveEmail = new ParseServer();
+            saveEmail.setLogin(email,password);
+
+
+            }
+
+
+           // Toast.makeText(HomeActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
